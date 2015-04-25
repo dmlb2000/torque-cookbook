@@ -1,0 +1,20 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: fedora-21
+  - name: fedora-20
+  - name: centos-5
+  - name: centos-6
+  - name: centos-7
+
+suites:
+  - name: default
+    run_list:
+      - recipe[torque_test::default]
+    attributes:
