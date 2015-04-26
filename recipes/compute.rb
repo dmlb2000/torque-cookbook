@@ -1,1 +1,1 @@
-include_recipe "torque::default"
+include_recipe 'torque::default'

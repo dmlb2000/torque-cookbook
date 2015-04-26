@@ -17,7 +17,7 @@
 # Install torque common
 include_recipe 'yum-epel::default' if node['platform_family'] == 'rhel'
 
-package "torque"
+package 'torque'
 
 user = node['torque']['user'].str
 
