@@ -17,3 +17,9 @@ suites:
     run_list:
       - recipe[torque_test::install]
     attributes:
+  - name: server
+    run_list:
+      - recipe[torque_test::server]
+  - name: compute
+    run_list:
+      - recipe[torque_test::compute]
