@@ -1,1 +1,1 @@
-include_recipe "torque::head_node"
+include_recipe "torque::default"

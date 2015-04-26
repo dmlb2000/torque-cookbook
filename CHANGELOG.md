@@ -1,11 +1,11 @@
-torque_test CHANGELOG
+torque CHANGELOG
 =====================
 
-This file is used to list changes made in each version of the torque_test cookbook.
+This file is used to list changes made in each version of the torque cookbook.
 
 0.1.0
 -----
-- [your_name] - Initial release of torque_test
+- [your_name] - Initial release of torque
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
