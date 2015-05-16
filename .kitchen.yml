@@ -2,6 +2,14 @@
 driver:
   name: docker
   use_sudo: false
+<% if ENV.has_key?('DOCKER_LINK') and ENV.has_key?('DOCKER_NAME') %>
+  instance_name: <%= ENV['DOCKER_NAME'] %>
+  links: <%= ENV['DOCKER_LINK'] %>
+<% end %>
+<% if ENV.has_key?('DOCKER_VOLUME') %>
+  volume: <%= ENV['DOCKER_VOLUME'] %>
+  privileged: true
+<% end %>
 
 provisioner:
   name: chef_solo
@@ -11,15 +19,20 @@ platforms:
   - name: fedora-20
   - name: centos-5
   - name: centos-6
+  - name: centos-7
 
 suites:
   - name: install
     run_list:
-      - recipe[torque_test::install]
+      - recipe[torque::install]
     attributes:
   - name: server
     run_list:
-      - recipe[torque_test::server]
+      - recipe[torque::server]
   - name: compute
     run_list:
-      - recipe[torque_test::compute]
+      - recipe[torque::compute]
+  - name: aio
+    run_list:
+      - recipe[torque::server]
+      - recipe[torque::compute]

@@ -19,12 +19,13 @@ include_recipe 'yum-epel::default' if node['platform_family'] == 'rhel'
 
 package 'torque'
 
-user = node['torque']['user'].str
+user = node['torque']['user'].to_s
 
 group user
 
 user user do
   shell '/bin/bash'
+  group user
 end
 
 # Workaround for buggy chef user
@@ -46,3 +47,5 @@ cookbook_file "/home/#{user}/.ssh/config" do
   owner user
   group user
 end
+
+include_recipe 'torque::munge'
