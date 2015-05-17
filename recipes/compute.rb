@@ -24,7 +24,7 @@ template "/etc/torque/mom/config" do
   group 'root'
   mode '644'
   variables(
-    :snodes => snodes
+    :nodes => snodes
   )
   notifies :restart, "service[pbs_mom]", :immediately
 end

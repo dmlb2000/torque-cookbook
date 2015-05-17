@@ -1,15 +1,7 @@
 ---
 driver:
-  name: docker
-  use_sudo: false
-<% if ENV.has_key?('DOCKER_LINK') and ENV.has_key?('DOCKER_NAME') %>
-  instance_name: <%= ENV['DOCKER_NAME'] %>
-  links: <%= ENV['DOCKER_LINK'] %>
-<% end %>
-<% if ENV.has_key?('DOCKER_VOLUME') %>
-  volume: <%= ENV['DOCKER_VOLUME'] %>
-  privileged: true
-<% end %>
+  name: vagrant
+  provider: libvirt
 
 provisioner:
   name: chef_solo

@@ -1,13 +1,13 @@
 include_recipe 'yum-epel' if node['platform_family'] == 'rhel'
 
-if File.directory?("/localrepo")
-  yum_repository "local-torque" do
-    description "local torque repository"
-    baseurl "file:///localrepo"
-    gpgcheck false
-    enabled true
-  end
+yum_repository "local-torque" do
+  description "local torque repository"
+  baseurl "file:///localrepo"
+  gpgcheck false
+  enabled true
+  only_if File.directory?("/localrepo")
 end
+
 package 'torque'
 package 'torque-mom'
 package 'torque-server'
