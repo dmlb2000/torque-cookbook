@@ -1,11 +1,24 @@
 include_recipe 'yum-epel' if node['platform_family'] == 'rhel'
 
+case node['platform_family']
+  when 'rhel'
+    dist = ".el#{node['platform_version'].to_i}"
+  when 'fedora'
+    dist = ".fc#{node['platform_version']}"
+  else
+    dist = ""
+end
+
+cmd = Mixlib::ShellOut.new("ip route show | grep ^default | cut -d' ' -f3")
+cmd.run_command
+server = cmd.stdout.strip
+cmd.error!
+
 yum_repository "local-torque" do
   description "local torque repository"
-  baseurl "file:///localrepo"
+  baseurl "http://#{server}:10000/results_torque/4.2.10/2#{dist}"
   gpgcheck false
   enabled true
-  only_if File.directory?("/localrepo")
 end
 
 package 'torque'
