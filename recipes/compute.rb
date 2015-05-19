@@ -3,12 +3,12 @@ include_recipe 'torque::default'
 package 'torque-mom'
 
 if Chef::Config[:solo]
-  snodes = [ 'localhost' ]
+  snodes = [ node ]
 else
   snodes = search(:node, "recipes:torque\\:\\:server AND chef_environment:#{chef_environment}" )
 end
 template "/var/lib/torque/server_name" do
-  source 'nodes.erb'
+  source 'server_name.erb'
   owner 'root'
   group 'root'
   mode 0644

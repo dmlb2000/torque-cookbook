@@ -2,6 +2,8 @@
 driver:
   name: vagrant
   provider: libvirt
+  customize:
+    volume_cache: writeback
 
 provisioner:
   name: chef_solo
@@ -16,15 +18,19 @@ platforms:
 suites:
   - name: install
     run_list:
+      - recipe[torque::setup]
       - recipe[torque::install]
     attributes:
   - name: server
     run_list:
+      - recipe[torque::setup]
       - recipe[torque::server]
   - name: compute
     run_list:
+      - recipe[torque::setup]
       - recipe[torque::compute]
   - name: aio
     run_list:
+      - recipe[torque::setup]
       - recipe[torque::server]
       - recipe[torque::compute]
