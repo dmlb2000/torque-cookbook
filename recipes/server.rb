@@ -31,12 +31,7 @@ end
 
 case node['platform_family']
   when 'fedora'
-    case node['platform_version'].to_i
-      when 20
-        torque_docdir = "/usr/share/doc/torque"
-      else
-        torque_docdir = "/usr/share/doc/torque-4.2.10"
-    end
+    torque_docdir = "/usr/share/doc/torque"
   else
     torque_docdir = "/usr/share/doc/torque-4.2.10"
 end
