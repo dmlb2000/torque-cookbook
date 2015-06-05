@@ -1,4 +1,5 @@
 package 'torque'
+package 'torque-client'
 package 'torque-mom'
 package 'torque-server'
 package 'torque-scheduler'

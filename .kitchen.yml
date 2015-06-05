@@ -20,7 +20,10 @@ suites:
     run_list:
       - recipe[torque::setup]
       - recipe[torque::install]
-    attributes:
+  - name: client
+    run_list:
+      - recipe[torque::setup]
+      - recipe[torque::client]
   - name: server
     run_list:
       - recipe[torque::setup]
@@ -33,4 +36,5 @@ suites:
     run_list:
       - recipe[torque::setup]
       - recipe[torque::server]
+      - recipe[torque::client]
       - recipe[torque::compute]
