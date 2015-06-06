@@ -3,5 +3,5 @@
   "chef_type": "node",
   "json_class": "Chef::Node",
   "chef_environment": "_default",
-  "run_list": ["recipe[torque_test::client]"]
+  "run_list": ["recipe[torque::client]"]
 }

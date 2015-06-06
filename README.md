@@ -1,23 +1,16 @@
 torque Cookbook
 ====================
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+This cookbook is used to test torque on Fedora/EPEL systems.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
-
-e.g.
-#### packages
-- `toaster` - torque needs toaster to brown your bagel.
+#### Cookbooks
+- `yum` - required to setup local testing repository
+- `yum-epel` - required to get dependencies for torque
+- `auto-update` - required to make sure the cluster is updated
 
 Attributes
 ----------
-TODO: List your cookbook attributes here.
-
-e.g.
 #### torque::default
 <table>
   <tr>
@@ -27,10 +20,34 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['torque']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['torque']['user']</tt></td>
+    <td>String</td>
+    <td>torque user to use</td>
+    <td><tt>pbs</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['torque']['etc_dir']</tt></td>
+    <td>String</td>
+    <td>torque etc directory</td>
+    <td><tt>/etc/torque</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['torque']['var_dir']</tt></td>
+    <td>String</td>
+    <td>torque var directory</td>
+    <td><tt>/var/lib/torque</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['torque']['publickey']</tt></td>
+    <td>String</td>
+    <td>torque user public ssh key</td>
+    <td><tt>not found</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['torque']['manager_host']</tt></td>
+    <td>String</td>
+    <td>torque </td>
+    <td><tt>not found</tt></td>
   </tr>
 </table>
 

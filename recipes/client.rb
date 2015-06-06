@@ -1,4 +1,4 @@
-include_recipe 'torque_test::default'
+include_recipe 'torque::default'
 
 %w(
   torque-client

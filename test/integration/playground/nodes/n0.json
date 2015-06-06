@@ -1,7 +1,0 @@
-{
-  "name": "n0",
-  "chef_type": "node",
-  "json_class": "Chef::Node",
-  "chef_environment": "_default",
-  "run_list": ["recipe[torque_test::compute]"]
-}
