@@ -12,11 +12,15 @@ berks vendor test/integration/playground/cookbooks
 pushd test/integration/playground
 knife upload --server-url http://192.168.121.1:8889 .
 popd
-kitchen create -c 3 -p compute-$DIST server-$DIST client-$DIST
+kitchen create c0-$DIST
+kitchen create c1-$DIST
+kitchen create server-$DIST
+kitchen create client-$DIST
 
 SERVER_IP=$(echo ip a show dev eth0 | kitchen login server-$DIST | awk '$1 == "inet" { print $2 }' | cut -d/ -f1)
 CLIENT_IP=$(echo ip a show dev eth0 | kitchen login client-$DIST | awk '$1 == "inet" { print $2 }' | cut -d/ -f1)
-COMPUTE_IP=$(echo ip a show dev eth0 | kitchen login compute-$DIST | awk '$1 == "inet" { print $2 }' | cut -d/ -f1)
+C0_IP=$(echo ip a show dev eth0 | kitchen login c0-$DIST | awk '$1 == "inet" { print $2 }' | cut -d/ -f1)
+C1_IP=$(echo ip a show dev eth0 | kitchen login c1-$DIST | awk '$1 == "inet" { print $2 }' | cut -d/ -f1)
 
 function run_chef()
 {
@@ -33,6 +37,7 @@ function run_chef()
 for i in 0 1 ; do
   run_chef 'recipe[torque::setup]' server $SERVER_IP &
   run_chef 'recipe[torque::setup]' client $CLIENT_IP &
-  run_chef 'recipe[torque::setup]' compute $COMPUTE_IP &
+  run_chef 'recipe[torque::setup]' c0 $C0_IP &
+  run_chef 'recipe[torque::setup]' c1 $C1_IP &
   wait
 done

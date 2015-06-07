@@ -11,7 +11,7 @@ end
 if Chef::Config[:solo]
   cnodes = [ node ]
 else
-  cnodes = search(:node, "recipes:torque\\:\\:compute AND chef_environment:#{chef_environment}" )
+  cnodes = search(:node, "recipes:torque\\:\\:compute AND chef_environment:#{node.environment}" )
 end
 template "/var/lib/torque/server_priv/nodes" do
   source 'nodes.erb'
@@ -23,10 +23,6 @@ template "/var/lib/torque/server_priv/nodes" do
   )
   notifies :restart, "service[pbs_server]"
   notifies :restart, "service[pbs_sched]"
-end
-
-service "trqauthd" do
-  action [:start, :enable]
 end
 
 case node['platform_family']

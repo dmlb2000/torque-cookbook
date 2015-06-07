@@ -28,7 +28,11 @@ suites:
     run_list:
       - recipe[torque::setup]
       - recipe[torque::server]
-  - name: compute
+  - name: c0
+    run_list:
+      - recipe[torque::setup]
+      - recipe[torque::compute]
+  - name: c1
     run_list:
       - recipe[torque::setup]
       - recipe[torque::compute]

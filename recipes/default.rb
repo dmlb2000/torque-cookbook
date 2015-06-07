@@ -49,3 +49,8 @@ cookbook_file "/home/#{user}/.ssh/config" do
 end
 
 include_recipe 'torque::munge'
+
+service "trqauthd" do
+  action [:start, :enable]
+end
+

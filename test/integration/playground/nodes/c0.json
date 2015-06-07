@@ -1,5 +1,5 @@
 {
-  "name": "compute",
+  "name": "c0",
   "chef_type": "node",
   "json_class": "Chef::Node",
   "chef_environment": "_default",

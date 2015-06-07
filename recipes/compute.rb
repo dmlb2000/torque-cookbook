@@ -5,7 +5,7 @@ package 'torque-mom'
 if Chef::Config[:solo]
   snodes = [ node ]
 else
-  snodes = search(:node, "recipes:torque\\:\\:server AND chef_environment:#{chef_environment}" )
+  snodes = search(:node, "recipes:torque\\:\\:server AND chef_environment:#{node.environment}" )
 end
 template "/var/lib/torque/server_name" do
   source 'server_name.erb'
