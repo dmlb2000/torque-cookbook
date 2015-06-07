@@ -31,4 +31,5 @@ end
 
 service 'pbs_mom' do
   action [:start, :enable]
+  subscribes :restart, "template[/etc/torque/server_name]", :immediately
 end

@@ -30,7 +30,7 @@ if node['munge'].has_key?("mungekey")
       group "munge"
       mode "0400"
       path "/etc/munge/munge.key.base64"
-      notifies :run, "bash[create-munge-key]"
+      notifies :run, "bash[create-munge-key]", :immediately
       source "mungekey.erb"
       variables({
         :data => key_hash['mungekey']
@@ -39,7 +39,11 @@ if node['munge'].has_key?("mungekey")
     bash "create-munge-key" do
       user "root"
       cwd "/tmp"
-      code "base64 -d < /etc/munge/munge.key.base64 > /etc/munge/munge.key"
+      code <<-EOH
+      base64 -d < /etc/munge/munge.key.base64 > /etc/munge/munge.key
+      chmod 0400 /etc/munge/munge.key
+      chown munge:munge /etc/munge/munge.key
+      EOH
       action :nothing
     end
   end

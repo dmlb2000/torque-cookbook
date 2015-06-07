@@ -46,8 +46,10 @@ end
 
 service "pbs_server" do
   action [:start, :enable]
+  subscribes :restart, "template[/etc/torque/server_name]", :immediately
 end
 
 service "pbs_sched" do
   action [:start, :enable]
+  subscribes :restart, "template[/etc/torque/server_name]", :immediately
 end

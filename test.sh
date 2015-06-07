@@ -1,12 +1,12 @@
 #!/bin/bash -x
 
-DIST=${1:-fedora-21}
+DIST=${1:-centos-71}
 
 berks install
 rm -rf test/integration/playground/cookbooks/*
 berks vendor test/integration/playground/cookbooks
 pushd test/integration/playground
-knife upload --server-url http://192.168.121.1:8889 cookbooks
+knife upload --server-url http://192.168.121.1:8889 cookbooks data_bags environments roles
 popd
 
 SERVER_IP=$(echo ip a show dev eth0 | kitchen login server-$DIST | awk '$1 == "inet" { print $2 }' | cut -d/ -f1)

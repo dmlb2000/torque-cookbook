@@ -4,6 +4,14 @@
   "json_class": "Chef::Environment",
   "chef_type": "environment",
   "cookbook_versions": {},
-  "default_attributes": {},
+  "default_attributes": {
+    "munge": {
+      "mungekey": {
+        "type": "databag",
+        "data_bag": "munge",
+        "data_item": "key"
+      }
+    }
+  },
   "override_attributes": {}
 }

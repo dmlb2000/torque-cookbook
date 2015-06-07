@@ -29,3 +29,13 @@ yum_repository "local-torque" do
   enabled true
 end
 
+hostsfile_entry "127.0.0.1" do
+  hostname "localhost localhost.localdomain localhost4 localhost4.localdomain4"
+end
+
+nodes = search(:node, "chef_environment:#{node.environment}")
+nodes.each do |cnode|
+  hostsfile_entry cnode['ipaddress'] do
+    hostname cnode['hostname']
+  end
+end
