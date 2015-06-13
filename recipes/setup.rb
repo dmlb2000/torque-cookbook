@@ -32,8 +32,11 @@ end
 hostsfile_entry "127.0.0.1" do
   hostname "localhost localhost.localdomain localhost4 localhost4.localdomain4"
 end
-
-nodes = search(:node, "chef_environment:#{node.environment}")
+if Chef::Config[:solo]
+  nodes = [ node ]
+else
+  nodes = search(:node, "chef_environment:#{node.environment}")
+end
 nodes.each do |cnode|
   hostsfile_entry cnode['ipaddress'] do
     hostname cnode['hostname']
