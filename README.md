@@ -87,7 +87,7 @@ the torque client and connect it to the cluster:
 {
   "name":"my_node",
   "run_list": [
-    "recipe[torque::client]"
+    "role[torque-clients],recipe[torque::client]"
   ]
 }
 ```
