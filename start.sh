@@ -36,9 +36,9 @@ function run_chef()
 }
 
 for i in 0 1; do
-  run_chef 'recipe[torque::setup]' server $SERVER_IP &
+  run_chef 'role[torque-server],recipe[torque::setup]' server $SERVER_IP &
   run_chef 'recipe[torque::setup]' client $CLIENT_IP &
-  run_chef 'recipe[torque::setup]' c0 $C0_IP &
-  run_chef 'recipe[torque::setup]' c1 $C1_IP &
+  run_chef 'role[torque-compute],recipe[torque::setup]' c0 $C0_IP &
+  run_chef 'role[torque-compute],recipe[torque::setup]' c1 $C1_IP &
   wait
 done

@@ -11,8 +11,9 @@ end
 if Chef::Config[:solo]
   cnodes = [ node ]
 else
-  cnodes = search(:node, "recipes:torque\\:\\:compute AND chef_environment:#{node.environment}" )
+  cnodes = search(:node, "roles:torque-compute AND chef_environment:#{node.environment}" )
 end
+
 template "/var/lib/torque/server_priv/nodes" do
   source 'nodes.erb'
   owner 'root'
