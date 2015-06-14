@@ -39,6 +39,27 @@ else
 end
 nodes.each do |cnode|
   hostsfile_entry cnode['ipaddress'] do
-    hostname cnode['hostname']
+    hostname "#{cnode['hostname']} #{cnode['machinename']}"
   end
 end
+
+cookbook_file "/home/vagrant/.ssh/id_rsa" do
+  owner "vagrant"
+  group "vagrant"
+  mode "0600"
+end
+cookbook_file "/home/vagrant/.ssh/id_rsa.pub" do
+  owner "vagrant"
+  group "vagrant"
+  mode "0644"
+end
+execute "cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys" do
+  not_if "grep vagrant@localhost.localdomain /home/vagrant/.ssh/authorized_keys"
+end
+cookbook_file "/home/vagrant/.ssh/config" do
+  source 'config'
+  owner "vagrant"
+  group "vagrant"
+  mode "0600"
+end
+

@@ -1,5 +1,3 @@
-default['torque']['user'] = 'pbs'
-
 default['torque']['etc_dir'] = '/etc/torque'
 default['torque']['var_dir'] = '/var/lib/torque'
 

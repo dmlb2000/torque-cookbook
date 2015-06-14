@@ -54,3 +54,15 @@ service "pbs_sched" do
   action [:start, :enable]
   subscribes :restart, "template[/etc/torque/server_name]", :immediately
 end
+
+if Chef::Config[:solo]
+  cnodes = [ node ]
+else
+  cnodes = search(:node, "roles:torque-clients AND chef_environment:#{node.environment}" )
+end
+
+clients_names = []
+cnodes.each do |client_node|
+  clients_names.push(client_node['hostname'])
+end
+execute "qmgr -c 'set server submit_hosts = #{clients_names.join(',')}'"

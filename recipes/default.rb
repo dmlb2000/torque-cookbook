@@ -19,35 +19,6 @@ include_recipe 'yum-epel::default' if node['platform_family'] == 'rhel'
 
 package 'torque'
 
-user = node['torque']['user'].to_s
-
-group user
-
-user user do
-  shell '/bin/bash'
-  group user
-end
-
-# Workaround for buggy chef user
-directory "/home/#{user}" do
-  owner user
-  group user
-  mode 00755
-end
-
-# Set up SSH directory and config file
-directory "/home/#{user}/.ssh" do
-  owner user
-  group user
-  mode 00700
-end
-
-cookbook_file "/home/#{user}/.ssh/config" do
-  source 'config'
-  owner user
-  group user
-end
-
 include_recipe 'torque::munge'
 
 if Chef::Config[:solo]
