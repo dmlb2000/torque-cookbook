@@ -3,7 +3,13 @@ include_recipe 'torque::default'
 package 'torque-mom'
 
 if Chef::Config[:solo]
-  snodes = [ node ]
+  snodes = [
+    {
+      "hostname" => "localhost",
+      "machinename" => "localhost.localdomain",
+      "ipaddress" => "127.0.0.1"
+    }
+  ]
 else
   snodes = search(:node, "roles:torque-server AND chef_environment:#{node.environment}" )
 end
@@ -15,7 +21,7 @@ template "/var/lib/torque/server_name" do
   variables(
     :nodes => snodes
   )
-  notifies :restart, "service[pbs_mom]", :immediately
+  notifies :restart, "service[pbs_mom]"
 end
 
 template "/etc/torque/mom/config" do
@@ -26,10 +32,10 @@ template "/etc/torque/mom/config" do
   variables(
     :nodes => snodes
   )
-  notifies :restart, "service[pbs_mom]", :immediately
+  notifies :restart, "service[pbs_mom]"
 end
 
 service 'pbs_mom' do
   action [:start, :enable]
-  subscribes :restart, "template[/etc/torque/server_name]", :immediately
+  subscribes :restart, "template[/etc/torque/server_name]"
 end

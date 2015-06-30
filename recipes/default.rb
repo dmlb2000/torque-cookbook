@@ -22,20 +22,17 @@ package 'torque'
 include_recipe 'torque::munge'
 
 if Chef::Config[:solo]
-  snodes = [ node ]
+  snodes = [ 
+    {
+      "hostname" => "localhost",
+      "machinename" => "localhost.localdomain",
+      "ipaddress" => "127.0.0.1"
+    }
+  ]
 else
   snodes = search(:node, "roles:torque-server AND chef_environment:#{node.environment}" )
 end
 template "/etc/torque/server_name" do
-  source 'server_name.erb'
-  owner 'root'
-  group 'root'
-  mode 0644
-  variables(
-    :nodes => snodes
-  )
-end
-template "/var/lib/torque/server_name" do
   source 'server_name.erb'
   owner 'root'
   group 'root'

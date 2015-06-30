@@ -4,14 +4,25 @@ include_recipe 'torque::default'
   torque-server
   torque-scheduler
   torque-client
-  ).each do |pkg|
+).each do |pkg|
     package pkg 
 end
 
 if Chef::Config[:solo]
-  cnodes = [ node ]
+  cnodes = [
+    {
+      "hostname" => "localhost",
+      "machinename" => "localhost.localdomain",
+      "ipaddress" => "127.0.0.1",
+      "cpu" => {
+        "total" => 1
+      }
+    }
+  ]
+  server_fqdn = node[:hostname]
 else
   cnodes = search(:node, "roles:torque-compute AND chef_environment:#{node.environment}" )
+  server_fqdn = node[:hostname]
 end
 
 template "/var/lib/torque/server_priv/nodes" do
@@ -36,7 +47,7 @@ end
 bash "server-setup" do
   flags "-xe"
   code <<-EOH
-  /bin/echo y | /bin/bash -x #{torque_docdir}/torque.setup root #{node['fqdn']}
+  /bin/echo y | /bin/bash -x #{torque_docdir}/torque.setup root #{server_fqdn}
   pkill pbs_server
   while pgrep pbs_server ; do
     sleep 1
@@ -47,16 +58,22 @@ end
 
 service "pbs_server" do
   action [:start, :enable]
-  subscribes :restart, "template[/etc/torque/server_name]", :immediately
+  subscribes :restart, "template[/etc/torque/server_name]"
 end
 
 service "pbs_sched" do
   action [:start, :enable]
-  subscribes :restart, "template[/etc/torque/server_name]", :immediately
+  subscribes :restart, "template[/etc/torque/server_name]"
 end
 
 if Chef::Config[:solo]
-  cnodes = [ node ]
+  cnodes = [
+    {
+      "hostname" => "localhost",
+      "machinename" => "localhost.localdomain",
+      "ipaddress" => "127.0.0.1"
+    }
+  ]
 else
   cnodes = search(:node, "roles:torque-clients AND chef_environment:#{node.environment}" )
 end

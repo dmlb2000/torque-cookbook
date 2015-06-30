@@ -13,7 +13,7 @@
 }
 
 @test "submit_test_job" {
-  echo "sleep 10" | qsub
+  echo "sleep 10" | su - vagrant -c qsub
 }
 
 @test "qstat_for_job" {

@@ -33,7 +33,15 @@ hostsfile_entry "127.0.0.1" do
   hostname "localhost localhost.localdomain localhost4 localhost4.localdomain4"
 end
 if Chef::Config[:solo]
-  nodes = [ node ]
+  nodes = [
+    {
+      "hostname" => "localhost",
+      "machinename" => "localhost.localdomain",
+      "ipaddress" => "127.0.0.1"
+    }
+  ]
+  node.default['set_fqdn'] = "localhost.localdomain"
+  include_recipe('hostname')
 else
   nodes = search(:node, "chef_environment:#{node.environment}")
 end

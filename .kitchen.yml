@@ -10,7 +10,6 @@ provisioner:
 
 platforms:
   - name: fedora-21
-  - name: fedora-20
   - name: centos-5.11
   - name: centos-6.6
   - name: centos-7.1
