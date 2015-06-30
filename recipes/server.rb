@@ -19,7 +19,7 @@ if Chef::Config[:solo]
       }
     }
   ]
-  server_fqdn = node[:hostname]
+  server_fqdn = "localhost"
 else
   cnodes = search(:node, "roles:torque-compute AND chef_environment:#{node.environment}" )
   server_fqdn = node[:hostname]
