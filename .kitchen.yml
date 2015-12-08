@@ -3,7 +3,7 @@ driver:
   name: vagrant
   provider: libvirt
   customize:
-    volume_cache: writeback
+    volume_cache: "\'writeback\'"
 
 provisioner:
   name: chef_solo
@@ -11,7 +11,7 @@ provisioner:
 platforms:
   - name: fedora-21
   - name: centos-5.11
-  - name: centos-6.6
+  - name: centos-6.7
   - name: centos-7.1
 
 suites:

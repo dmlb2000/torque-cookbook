@@ -24,7 +24,7 @@ cmd.error!
 
 yum_repository "local-torque" do
   description "local torque repository"
-  baseurl "http://#{server}:10000/results_torque/4.2.10/5#{dist}"
+  baseurl "http://#{server}:8000/results_torque/4.2.10/8#{dist}"
   gpgcheck false
   enabled true
 end

@@ -24,6 +24,14 @@ template "/var/lib/torque/server_name" do
   notifies :restart, "service[pbs_mom]"
 end
 
+template "/var/lib/torque/mom_priv/mom.layout" do
+  source 'mom_layout.erb'
+  owner 'root'
+  group 'root'
+  mode '644'
+  notifies :restart, "service[pbs_mom]"
+end
+
 template "/etc/torque/mom/config" do
   source 'mom_config.erb'
   owner 'root'
