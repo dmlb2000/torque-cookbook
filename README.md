@@ -1,5 +1,6 @@
 torque Cookbook
 ====================
+[![Build Status](https://travis-ci.org/dmlb2000/torque-cookbook.svg?branch=master)](https://travis-ci.org/dmlb2000/torque-cookbook)
 This cookbook is used to test torque on Fedora/EPEL systems.
 
 Requirements
