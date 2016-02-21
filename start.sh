@@ -3,7 +3,7 @@
 #curl -o ~/.ssh/vagrant https://github.com/mitchellh/vagrant/raw/master/keys/vagrant
 #chmod 0400 ~/.ssh/vagrant
 
-DIST=${1:-centos-71}
+DIST=${1:-centos-72}
 
 kitchen create c0-$DIST
 kitchen create c1-$DIST

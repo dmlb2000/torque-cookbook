@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-DIST=${1:-centos-71}
+DIST=${1:-centos-72}
 
 berks install
 rm -rf test/integration/playground/cookbooks/*
