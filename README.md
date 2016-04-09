@@ -120,6 +120,7 @@ setting things up.
   http://github.com/dmlb2000/bento
 - chefdk
 - local torque repository specified in `torque::setup`
+ - `python -m SimpleHTTPServer`
 
 The setup is done by running the `./start.sh` script in the root
 of the cookbook directory. This script sets up the testing 

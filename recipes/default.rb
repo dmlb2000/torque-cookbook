@@ -67,3 +67,7 @@ service "trqauthd" do
   action [:start, :enable]
 end
 
+include_recipe 'build-essential'
+package 'openmpi'
+package 'openmpi-devel'
+package 'environment-modules'

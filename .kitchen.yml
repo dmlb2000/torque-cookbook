@@ -4,6 +4,7 @@ driver:
   provider: libvirt
   customize:
     volume_cache: "\'writeback\'"
+    cpus: 2
 
 provisioner:
   name: chef_solo
