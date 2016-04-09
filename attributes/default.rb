@@ -16,3 +16,4 @@ default['torque']['walltime'] = '1:00:00'
 default['torque']['auto_node_np'] = 'true'
 default['torque']['default_queue'] = 'pbs'
 
+default['auto-update']['enabled'] = true

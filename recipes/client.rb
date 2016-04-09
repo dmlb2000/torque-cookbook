@@ -4,7 +4,7 @@ if Chef::Config[:solo]
   head = node
 else
   heads = search(:node,
-                 "role:torque-server",
+                 'role:torque-server',
                  filter_result: { name: ['hostname'],
                                   ip: ['ipaddress']
                                 }
@@ -22,6 +22,6 @@ end
 
 %w(
   torque-client
-  ).each do |pkg|
-    package pkg
+).each do |pkg|
+  package pkg
 end
