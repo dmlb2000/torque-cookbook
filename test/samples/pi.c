@@ -36,6 +36,12 @@ int main(int argc, char ** argv)
     long int cur = 0;
     int a,b;
     double a_p, b_p;
+    long int *le_one_sums;
+    long int *g_one_sums;
+    le_one_sums = calloc(omp_get_num_threads(), sizeof(long int));
+    g_one_sums = calloc(omp_get_num_threads(), sizeof(long int));
+    fprintf(stderr, "OMP_NUM_THREADS=%d\n", omp_get_num_threads());
+    #pragma omp parallel for private(a,b,a_p,b_p)
     for(cur = 0; cur < times ; cur++)
     {
         a = rand();
@@ -43,9 +49,14 @@ int main(int argc, char ** argv)
         a_p = (double) a / (double) RAND_MAX;
         b_p = (double) b / (double) RAND_MAX;
         if( (a_p * a_p) + (b_p * b_p) <= 1.0 )
-            le_one++;
+            le_one_sums[omp_get_thread_num()]++;
         else
-            g_one++;
+            g_one_sums[omp_get_thread_num()]++;
+    }
+    for(cur = 0; cur < omp_get_num_threads(); cur++)
+    {
+        le_one += le_one_sums[cur];
+        g_one += g_one_sums[cur];
     }
 
     if( MPI_Reduce(&g_one, &sum_g_one, 1, MPI_LONG, MPI_SUM, 0, MPI_COMM_WORLD) != MPI_SUCCESS )

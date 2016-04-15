@@ -5,5 +5,5 @@
 #PBS -l nodes=2:ppn=2
 #PBS -l walltime=1:00:00
 
-mpirun -hostfile hostfile -np 4 /home/vagrant/pi 10000000000
+mpirun -hostfile hostfile --map-by node:pe=2 -bind-to core /home/vagrant/pi 10000000000
 
